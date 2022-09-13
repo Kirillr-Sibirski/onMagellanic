@@ -6,7 +6,7 @@ import "@openzeppelin/contracts@4.7.0/token/ERC721/extensions/ERC721URIStorage.s
 import "@openzeppelin/contracts@4.7.0/access/Ownable.sol";
 import "@openzeppelin/contracts@4.7.0/utils/Counters.sol";
 
-contract Web3ClubTourToken is ERC721, ERC721URIStorage, Ownable {
+contract OnMagellanicAward is ERC721, ERC721URIStorage, Ownable {
     using Counters for Counters.Counter;
 
     Counters.Counter private _tokenIdCounter;
@@ -14,7 +14,7 @@ contract Web3ClubTourToken is ERC721, ERC721URIStorage, Ownable {
     event Attest(address indexed to, uint256 indexed tokenId);
     event Revoke(address indexed to, uint256 indexed tokenId);
 
-    constructor() ERC721("Web3 Club Tour", "W3CT") {}
+    constructor() ERC721("OnMagellanic Award", "OMA") {}
 
     function safeMint(address to, string memory uri) public onlyOwner {
         uint256 tokenId = _tokenIdCounter.current();
