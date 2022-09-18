@@ -1,13 +1,11 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import Layout from "../components/layout";
 
 export default function Home() {
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline">
-        On Magellanic!
-      </h1>
-    </div>
+    <Layout>
+      <p className="mt-4">Task 1</p>
+      <p className="mt-4">Task 2</p>
+      <p className="mt-4">Task 3</p>
+    </Layout>
   )
 }
