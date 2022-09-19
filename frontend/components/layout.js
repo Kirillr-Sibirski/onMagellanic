@@ -1,9 +1,14 @@
+import Link from 'next/link'
+
 export default function Layout({ children }) {
     return (
         <div className="h-screen p-6">
             <div>
                 <header className="flex justify-between">
-                    <h1 className="text-3xl">OnMagellanic</h1>
+                    <div className="flex items-center">
+                        <h1 className="text-3xl">OnMagellanic</h1>
+                        <h4 className="ml-8"><Link href="/challenges"><a>Challenges</a></Link></h4>
+                    </div>
                     <button className="px-4 py-2 text-lg border border-orange-600">Login</button>
                 </header>
                 <main>
