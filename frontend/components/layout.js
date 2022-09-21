@@ -1,6 +1,35 @@
 import Link from 'next/link'
+import { ethers } from "ethers";
+import { stake } from '../interactions/index.js'
+import { netwrokChainID, ethEndpoint } from "../constants/ethConstants"; 
 
 export default function Layout({ children }) {
+    async function requestAccount() {
+        if(window.ethereum) {
+            try {
+                const accounts = await window.ethereum.request({
+                    method: "eth_requestAccounts"
+                });
+            } catch (error) {
+                console.log("Error connecting...")
+            }
+        } else {
+            alert("Please install MetaMask.")
+        }
+    }
+
+    async function switchNetwork() {
+        // Here network must be switched
+    }
+
+    async function connectWallet() {
+        if(typeof window.ethereum !== 'underfined') {
+            await requestAccount();
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            await switchNetwork(provider);
+            stake(provider); // For testing
+        }
+    }
     return (
         <div className="h-screen p-6">
             <div>
@@ -9,7 +38,7 @@ export default function Layout({ children }) {
                         <h1 className="text-3xl">OnMagellanic</h1>
                         <h4 className="ml-8"><Link href="/challenges"><a>Challenges</a></Link></h4>
                     </div>
-                    <button className="px-4 py-2 text-lg border border-orange-600">Login</button>
+                    <button className="px-4 py-2 text-lg border border-orange-600" onClick={connectWallet}>Login</button>
                 </header>
                 <main>
                     {children}
