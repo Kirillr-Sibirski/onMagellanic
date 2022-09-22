@@ -35,7 +35,7 @@ export default function Layout({ children }) {
             <div>
                 <header className="flex justify-between mb-6">
                     <div className="flex items-center">
-                        <h1 className="text-3xl">OnMagellanic</h1>
+                        <h1 className="text-3xl"><Link href="/"><a>OnMagellanic</a></Link></h1>
                         <h4 className="ml-8"><Link href="/challenges"><a>Challenges</a></Link></h4>
                     </div>
                     <button className="px-4 py-2 text-lg border border-orange-600" onClick={connectWallet}>Login</button>
