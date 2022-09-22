@@ -1,35 +1,75 @@
 import Link from 'next/link'
 import { ethers } from "ethers";
 import { stake } from '../interactions/index.js'
-import { netwrokChainID, ethEndpoint } from "../constants/ethConstants"; 
+import { networkChainID, ethEndpoint } from "../constants/ethConstants";
+import { useEffect, useState } from 'react';
+
+const shortenAddress = (address) => {
+    if (address)
+        return address.substring(0, 6) + "..." + address.substring(address.length - 4, address.length)
+}
 
 export default function Layout({ children }) {
-    async function requestAccount() {
-        if(window.ethereum) {
-            try {
-                const accounts = await window.ethereum.request({
-                    method: "eth_requestAccounts"
-                });
-            } catch (error) {
-                console.log("Error connecting...")
+
+    const [currentAccount, setCurrentAccount] = useState(null)
+
+    const checkWalletIsConnected = async () => {
+        const { ethereum } = window
+        if (ethereum) {
+            const accounts = await ethereum.request({ method: 'eth_accounts' })
+            if (accounts.length) {
+                setCurrentAccount(accounts[0])
             }
-        } else {
-            alert("Please install MetaMask.")
         }
     }
 
-    async function switchNetwork() {
-        // Here network must be switched
-    }
+    useEffect(() => {
+        checkWalletIsConnected()
+    }, [])
 
-    async function connectWallet() {
-        if(typeof window.ethereum !== 'underfined') {
-            await requestAccount();
-            const provider = new ethers.providers.Web3Provider(window.ethereum);
-            await switchNetwork(provider);
-            stake(provider); // For testing
+
+    const connectWalletHandler = async () => {
+        const { ethereum } = window
+
+        if (!ethereum) {
+            alert("Please Install Metamask")
+        }
+
+        try {
+            const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
+            setCurrentAccount(accounts[0])
+        } catch (error) {
+            console.log(error)
         }
     }
+
+    // async function requestAccount() {
+    //     if(window.ethereum) {
+    //         try {
+    //             const accounts = await window.ethereum.request({
+    //                 method: "eth_requestAccounts"
+    //             });
+    //         } catch (error) {
+    //             console.log("Error connecting...")
+    //         }
+    //     } else {
+    //         alert("Please install MetaMask.")
+    //     }
+    // }
+
+    // async function switchNetwork() {
+    //     // Here network must be switched
+    // }
+
+    // async function connectWallet() {
+    //     if(typeof window.ethereum !== 'underfined') {
+    //         await requestAccount();
+    //         const provider = new ethers.providers.Web3Provider(window.ethereum);
+    //         await switchNetwork(provider);
+    //         stake(provider); // For testing
+    //     }
+    // }
+
     return (
         <div className="h-screen p-6">
             <div>
@@ -38,7 +78,11 @@ export default function Layout({ children }) {
                         <h1 className="text-3xl"><Link href="/"><a>OnMagellanic</a></Link></h1>
                         <h4 className="ml-8"><Link href="/challenges"><a>Challenges</a></Link></h4>
                     </div>
-                    <button className="px-4 py-2 text-lg border border-orange-600" onClick={connectWallet}>Login</button>
+                    {currentAccount ? (
+                        <h4>{shortenAddress(currentAccount)}</h4>
+                    ) : (
+                        <button className="px-4 py-2 text-lg border border-orange-600" onClick={connectWalletHandler}>Login</button>
+                    )}
                 </header>
                 <main>
                     {children}
