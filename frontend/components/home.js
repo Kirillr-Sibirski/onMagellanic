@@ -1,7 +1,7 @@
 export default function HomeComponent() {
     return (
         <div>
-            <div className="mt-6 max-w-xl">
+            <div className="max-w-xl">
                 <h2 className="">A Better Way to Live</h2>
                 <p>Increase concentration during work time or relax more effectively. Our challenges help to improve quality of life along with getting extra rewards.</p>
                 <p>Start building the habits you deserve.</p>
