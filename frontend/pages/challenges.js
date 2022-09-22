@@ -26,7 +26,7 @@ export default function Home() {
               <p className="text-lg font-bold">{challenge.name}</p>
               <p className="text-gray-600 truncate">{challenge.durationInDays} days</p>
               <p className="text-sm text-gray-500">{challenge.awardNFT} NFT</p>
-              <p className="text-sm text-gray-500">{challenge.stakeAmount} CONU</p>
+              <p className="text-sm text-gray-500">{challenge.stakeAmount} COUN</p>
             </div>
           </div>
         ))}
