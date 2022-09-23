@@ -43,33 +43,6 @@ export default function Layout({ children }) {
         }
     }
 
-    // async function requestAccount() {
-    //     if(window.ethereum) {
-    //         try {
-    //             const accounts = await window.ethereum.request({
-    //                 method: "eth_requestAccounts"
-    //             });
-    //         } catch (error) {
-    //             console.log("Error connecting...")
-    //         }
-    //     } else {
-    //         alert("Please install MetaMask.")
-    //     }
-    // }
-
-    // async function switchNetwork() {
-    //     // Here network must be switched
-    // }
-
-    // async function connectWallet() {
-    //     if(typeof window.ethereum !== 'underfined') {
-    //         await requestAccount();
-    //         const provider = new ethers.providers.Web3Provider(window.ethereum);
-    //         await switchNetwork(provider);
-    //         stake(provider); // For testing
-    //     }
-    // }
-
     return (
         <div className="h-screen p-6">
             <div>
@@ -93,7 +66,6 @@ export default function Layout({ children }) {
                 <div className="mt-8 mb-6 border border-grey-600"></div>
                 <div className="flex justify-between">
                     <p>Life is in this moment. There is no other meaning of life.</p>
-                    <div><a href="https://twitter.com/cheenukhurana" target="_blank" className="fa fa-twitter"></a></div>
                 </div>
             </footer>
         </div>
