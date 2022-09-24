@@ -2,7 +2,6 @@
 pragma solidity ^0.8;
 
 import "./COUN.sol";
-
 contract StakingRewards {
     IERC20 public immutable stakingToken;
     IERC20 public immutable rewardsToken;
@@ -69,16 +68,9 @@ contract StakingRewards {
 
     function stake(uint _amount) external updateReward(msg.sender) {
         require(_amount > 0, "amount = 0");
-        stakingToken.transferFrom(msg.sender, address(this), _amount);
+        stakingToken.transferFrom(address(msg.sender), address(this), _amount);
         balanceOf[msg.sender] += _amount;
         totalSupply += _amount;
-    }
-
-    function withdraw(uint _amount) external updateReward(msg.sender) {
-        require(_amount > 0, "amount = 0");
-        balanceOf[msg.sender] -= _amount;
-        totalSupply -= _amount;
-        stakingToken.transfer(msg.sender, _amount);
     }
 
     function earned(address _account) public view returns (uint) {
@@ -89,10 +81,14 @@ contract StakingRewards {
     }
 
     function getReward() external updateReward(msg.sender) {
+        require(finishAt < block.timestamp, "reward duration not finished");
         uint reward = rewards[msg.sender];
-        if (reward > 0) {
+        uint amount = balanceOf[msg.sender];
+        if (reward > 0 && amount > 0) {
             rewards[msg.sender] = 0;
-            rewardsToken.transfer(msg.sender, reward);
+            balanceOf[msg.sender] = 0;
+            totalSupply -= amount;
+            rewardsToken.transfer(msg.sender, reward+amount);
         }
     }
 
@@ -113,7 +109,7 @@ contract StakingRewards {
             rewardRate = (_amount + remainingRewards) / duration;
         }
 
-        require(rewardRate > 0, "reward rate = 0");
+        //require(rewardRate > 0, "reward rate = 0");
         require(
             rewardRate * duration <= rewardsToken.balanceOf(address(this)),
             "reward amount > balance"
