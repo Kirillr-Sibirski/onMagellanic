@@ -1,9 +1,10 @@
 import '../styles/globals.css'
 import Head from 'next/head'
+import { AuthProvider } from "../components/authProvider";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <div>
+    <AuthProvider>
       <Head>
         <title>OnMagellanic</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
@@ -11,7 +12,7 @@ function MyApp({ Component, pageProps }) {
       </Head>
 
       <Component {...pageProps} />
-    </div>
+    </AuthProvider>
 
   )
 }

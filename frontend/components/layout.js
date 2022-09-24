@@ -3,6 +3,7 @@ import { ethers } from "ethers";
 import { stake } from '../interactions/index.js'
 import { networkChainID, ethEndpoint } from "../constants/ethConstants";
 import { useEffect, useState } from 'react';
+import { useAuth } from './authProvider.js';
 
 const shortenAddress = (address) => {
     if (address)
@@ -11,22 +12,7 @@ const shortenAddress = (address) => {
 
 export default function Layout({ children }) {
 
-    const [currentAccount, setCurrentAccount] = useState(null)
-
-    const checkWalletIsConnected = async () => {
-        const { ethereum } = window
-        if (ethereum) {
-            const accounts = await ethereum.request({ method: 'eth_accounts' })
-            if (accounts.length) {
-                setCurrentAccount(accounts[0])
-            }
-        }
-    }
-
-    useEffect(() => {
-        checkWalletIsConnected()
-    }, [])
-
+    const {currentAccount, setCurrentAccount} = useAuth()
 
     const connectWalletHandler = async () => {
         const { ethereum } = window

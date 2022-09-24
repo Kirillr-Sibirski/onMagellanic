@@ -1,10 +1,15 @@
 import Layout from "../../components/layout";
 import { challengesData } from "../../challengesData";
+import { useAuth } from "../../components/authProvider";
 
 export default function Challenge({ challengeData }) {
+
+    const { currentAccount } = useAuth()
+
     return (
         <Layout>
             <h3>{challengeData.name}</h3>
+            {currentAccount && <p>Logged In</p>}
         </Layout>
     )
 }
