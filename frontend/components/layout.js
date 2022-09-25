@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { ethers } from "ethers";
-import { stake } from '../interactions/index.js'
+import { stake, getReward } from '../interactions/index.js'
 import { networkChainID, ethEndpoint } from "../constants/ethConstants";
 import { useEffect, useState } from 'react';
 import { useAuth } from './authProvider.js';
@@ -24,6 +24,8 @@ export default function Layout({ children }) {
         try {
             const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
             setCurrentAccount(accounts[0])
+            const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+            getReward(provider); // for testing
         } catch (error) {
             console.log(error)
         }
