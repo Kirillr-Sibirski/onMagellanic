@@ -40,7 +40,7 @@ export default function Layout({ children }) {
                     {currentAccount ? (
                         <h4>{shortenAddress(currentAccount)}</h4>
                     ) : (
-                        <button className="px-4 py-2 text-lg border border-orange-600" onClick={connectWalletHandler}>Login</button>
+                        <button className="px-4 py-2 text-lg border border-orange-600 text-orange-600" onClick={connectWalletHandler}>Login</button>
                     )}
                 </header>
                 <main>
