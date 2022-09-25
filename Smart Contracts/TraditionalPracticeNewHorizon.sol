@@ -2,7 +2,7 @@
 pragma solidity ^0.8;
 
 import "./COUN.sol";
-contract TraditionalPractice-NewHorizon {
+contract TraditionalPracticeNewHorizon {
     IERC20 public immutable stakingToken;
     IERC20 public immutable rewardsToken;
 

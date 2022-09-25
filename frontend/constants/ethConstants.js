@@ -1,6 +1,10 @@
 import awardNFT from './ABI/AwardNFT.json'
 import coun from './ABI/COUN.json'
-import stakingCoun from './ABI/StakingCOUN.json'
+import GreatSleepRegulator from './ABI/GreatSleepRegulator.json'
+import OldAgainstNew from './ABI/OldAgainstNew.json'
+import StableBedFrequency from './ABI/StableBedFrequency.json'
+import TalkToSubsciousness from './ABI/TalkToSubsciousness.json'
+import TraditionalPracticeNewHorizon from './ABI/TraditionalPracticeNewHorizon.json'
 
 export const netwrokChainID = "0x80001"; // Polygon Mumbai testnet
 export const ethEndpoint = "Mumbai";
@@ -9,4 +13,8 @@ export const StakingCOUNContractAddress = "0x79c361D8f67bFce91c6D2A9d5492c4A46d0
 export const AwardNFTContractAddress = "0xeD62cfF87d204A0222905ca53EF155cc02Ff7Fd2";
 export const _awardNFT = awardNFT;
 export const _coun = coun;
-export const _stakingCoun = stakingCoun;
+export const _GreatSleepRegulator = GreatSleepRegulator;
+export const _OldAgainstNew = OldAgainstNew;
+export const _StableBedFrequency = StableBedFrequency;
+export const _TalkToSubsciousness = TalkToSubsciousness;
+export const _TraditionalPracticeNewHorizon = TraditionalPracticeNewHorizon;
