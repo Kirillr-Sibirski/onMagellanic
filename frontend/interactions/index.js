@@ -2,6 +2,17 @@ import { ethers } from "ethers";
 import { COUNContractAddress, StakingCOUNContractAddress, AwardNFTContractAddress, _stakingCoun, _awardNFT, _coun} from "../constants/ethConstants"; 
 import image from "../pages/api/ipfs";
 
+export async function start(challenge){
+  // start timer
+}
+
+export async function stop(challenge){
+  // stop timer
+  const sleep_time = 8; // In hours
+  // check if limit is met
+  // If not ...
+}
+
 export async function stake(){
   try {
     const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
@@ -29,6 +40,7 @@ export async function stake(){
 export async function getReward() {
   try {
     // Check here if the user has completed the challenge
+
     const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
     await provider.send("eth_requestAccounts", []);
     const signer = provider.getSigner();
@@ -58,9 +70,9 @@ export async function timeIntoChallenge() {
     const stakingContract = new ethers.Contract(StakingCOUNContractAddress, _stakingCoun, signer);
     const finish = await stakingContract.finishAt();
     const updated = await stakingContract.updatedAt();
-    const time = finish-updated; // In seconds
+    const time = finish-updated; 
 
-    return time;
+    return time; // In seconds
   } catch (err) {
     console.log(err);
     return err;
@@ -75,7 +87,7 @@ export async function earnedTokens() {
     let userAddress = await signer.getAddress();
     const stakingContract = new ethers.Contract(StakingCOUNContractAddress, _stakingCoun, signer);
     const earned = await stakingContract.earned(userAddress);
-    return earned;
+    return ethers.utils.formatEther(earned); // In COUNs
   } catch(err) {
     console.log(err);
     return err;
