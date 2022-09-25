@@ -16,6 +16,10 @@ const faqsData = [
     {
         question: "How much will I earn if I stake?",
         answer: "Players who finish receive the stake of players who do not finish. Your earnings depend on the performance of other players."
+    },
+    {
+        question: "Can I pause the challenge inbetween?",
+        answer: "No, challenge once started cannot be paused."
     }
 ]
 

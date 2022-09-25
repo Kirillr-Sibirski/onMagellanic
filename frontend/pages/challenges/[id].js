@@ -9,9 +9,12 @@ export default function Challenge({ challengeData }) {
 
     return (
         <Layout>
-            <h3 className="text-xl">{challengeData.name}</h3>
-            <h2 className="text-2xl text-red-600">Staking Pool closes for new challengers on 17:30 1 Oct GMT+5:30</h2>
-            {currentAccount && <p>Logged In</p>}
+            <h1 className="text-3xl font-bold">{challengeData.name}</h1>
+            {/* <h4 className="text-lg text-red-600 mt-2">Staking Pool closes for new challengers on 17:30 1 Oct GMT+5:30</h4> */}
+            <div className="mt-2"><i class='far fa-calendar-alt' /><span className="ml-2">{challengeData.durationInDays} days</span></div>
+            <div className="mt-4">
+                <button className="px-4 py-2 bg-green-500">Start without staking</button><button className="ml-6 px-4 py-2 bg-green-500">Stake and start</button>
+            </div>
             <FAQ />
         </Layout>
     )
