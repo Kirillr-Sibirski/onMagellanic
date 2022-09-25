@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import { COUNContractAddress, StakingCOUNContractAddress, AwardNFTContractAddress, _stakingCoun, _awardNFT, _coun} from "../constants/ethConstants"; 
+import { COUNContractAddress, GreatSleepRegulatorContractAddress, OldAgainstNewContractAddress, StableBedFrequencyContractAddress, TalkToSubsciousnessContractAddress, TraditionalPracticeNewHorizonContractAddress, AwardNFTContractAddress, _GreatSleepRegulator, _OldAgainstNew, _StableBedFrequency, _TalkToSubsciousness, _TraditionalPracticeNewHorizon, _awardNFT, _coun} from "../constants/ethConstants"; 
 import image from "../pages/api/ipfs";
 
 export async function start(challenge){
@@ -13,7 +13,7 @@ export async function stop(challenge){
   // If not ...
 }
 
-export async function stake(){
+export async function stake(challenge){ // int
   try {
     const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
     let amount = ethers.utils.parseEther('10'); // 10 COUN in Wei
@@ -25,9 +25,28 @@ export async function stake(){
 
     var options = { gasPrice: 1000000000, gasLimit: 3000000, nonce: 45, value: 0 };
     const counContract = new ethers.Contract(COUNContractAddress, _coun, signer);
-    await counContract.approve(StakingCOUNContractAddress, amount, options); // Approve for transferFrom function in StakingContract
+    let name;
+    let abi;
+    switch (challenge) {
+      case 0: 
+        name = GreatSleepRegulatorContractAddress
+        abi = _GreatSleepRegulator
+      case 1:
+        name = OldAgainstNewContractAddress
+        abi = _OldAgainstNew
+      case 2:
+        name = StableBedFrequencyContractAddress
+        abi = _StableBedFrequency
+      case 3:
+        name = TalkToSubsciousnessContractAddress
+        abi = _TalkToSubsciousness
+      case 4:
+        name = TraditionalPracticeNewHorizonContractAddress
+        abi = _TraditionalPracticeNewHorizon
+    }
+    await counContract.approve(name, amount, options); // Approve for transferFrom function in StakingContract
 
-    const stakingContract = new ethers.Contract(StakingCOUNContractAddress, _stakingCoun, signer);
+    const stakingContract = new ethers.Contract(name, abi, signer);
     const res = await stakingContract.stake(amount, options);
     console.log(res.hash) // for test
     return res.hash;
@@ -37,7 +56,7 @@ export async function stake(){
   }
 }
 
-export async function getReward(challenge) {
+export async function getReward(challenge) { //The same name as nft award images 
   try {
     // Check here if the user has completed the challenge
 

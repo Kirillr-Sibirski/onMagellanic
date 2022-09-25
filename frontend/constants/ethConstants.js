@@ -8,9 +8,15 @@ import TraditionalPracticeNewHorizon from './ABI/TraditionalPracticeNewHorizon.j
 
 export const netwrokChainID = "0x80001"; // Polygon Mumbai testnet
 export const ethEndpoint = "Mumbai";
-export const COUNContractAddress = "0x6C7fc34D009FDb82d95f295e096De2Cb097a7981";
-export const StakingCOUNContractAddress = "0x79c361D8f67bFce91c6D2A9d5492c4A46d0996c3";
-export const AwardNFTContractAddress = "0xeD62cfF87d204A0222905ca53EF155cc02Ff7Fd2";
+export const COUNContractAddress = "0x4CaB0926cc652Cd20eC945F0924F560784e03E70";
+export const AwardNFTContractAddress = "0x2D2b6dAC4Ae2555B93edE875584D14fa2eE4549E";
+
+export const GreatSleepRegulatorContractAddress = "0x5f73206B6659dAF8dF46534fE56A76dB116C7513";
+export const OldAgainstNewContractAddress = "0x4eAC0A60DC85469102Bf193613C672e9091205D0";
+export const StableBedFrequencyContractAddress = "0x1410bDeDa8c4F4ED48A4116322b942F2B64aaEC4";
+export const TalkToSubsciousnessContractAddress = "0xd0892d9F76422B016f98D51369A625e27957C786";
+export const TraditionalPracticeNewHorizonContractAddress = "0xD46C963b2D2dFacD4A7F3Cd3a9e4F5D2F2017562";
+
 export const _awardNFT = awardNFT;
 export const _coun = coun;
 export const _GreatSleepRegulator = GreatSleepRegulator;
