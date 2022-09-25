@@ -5,6 +5,7 @@ import FAQ from "../../components/faq";
 import { useState } from "react";
 import { stake } from "../../interactions";
 import { getReward } from "../../interactions";
+import { start, stop } from "../../interactions";
 
 const stakeCOUN = async () => {
     var prom = new Promise((resolve) => {
@@ -29,7 +30,18 @@ export default function Challenge({ challengeData }) {
         .catch(err=>console.log(err))
     }
 
+    const handleStart = async (challengeNumber) => {
+        console.log("Inside handle start"+challengeNumber)
+        start(challengeNumber)
+    }
+
+    const handleStop = async (challengeNumber) => {
+        console.log("Inside handle stop"+challengeNumber)
+        stop(challengeNumber)
+    }
+
     const handleGetReward = async (challengeNumber) => {
+        console.log("Inside handle getReward"+challengeNumber)
         getReward(challengeNumber)
     }
 
@@ -45,7 +57,7 @@ export default function Challenge({ challengeData }) {
                         <div>
                             {staked ? (
                                 <div className="mt-4">
-                                    <button className="px-4 py-2 bg-green-500">Start {challengeData.description}</button><button className="ml-6 px-4 py-2 bg-green-500">Stop {challengeData.description}</button>
+                                    <button className="px-4 py-2 bg-green-500" onClick={()=>{handleStart(challengeData.number)}}>Start {challengeData.description}</button><button className="ml-6 px-4 py-2 bg-green-500" onClick={()=>{handleStart(challengeData.number)}}>Stop {challengeData.description}</button>
                                     <div className="mt-4"><button className="px-4 py-2 bg-green-700" onClick={() => {handleGetReward(challengeData.number)}}>Get Reward</button></div>
                                 </div>
                             ) : (
