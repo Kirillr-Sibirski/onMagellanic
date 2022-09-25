@@ -2,10 +2,10 @@ import Layout from "../../components/layout";
 import { challengesData } from "../../challengesData";
 import { useAuth } from "../../components/authProvider";
 import FAQ from "../../components/faq";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { stake } from "../../interactions";
 import { getReward } from "../../interactions";
-import { start, stop } from "../../interactions";
+import { start, stop, timeIntoChallenge } from "../../interactions";
 
 const stakeCOUN = async () => {
     var prom = new Promise((resolve) => {
@@ -16,32 +16,53 @@ const stakeCOUN = async () => {
     return prom
 }
 
+function secondsToDhms(seconds) {
+    seconds = Number(seconds);
+    var d = Math.floor(seconds / (3600 * 24));
+    var h = Math.floor(seconds % (3600 * 24) / 3600);
+    var m = Math.floor(seconds % 3600 / 60);
+    var s = Math.floor(seconds % 60);
+
+    var dDisplay = d > 0 ? d + (d == 1 ? " day, " : " days ") : "";
+    var hDisplay = h > 0 ? h + (h == 1 ? " hour " : " hours ") : "";
+    var mDisplay = m > 0 ? m + (m == 1 ? " minute " : " minutes ") : "";
+    var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
+    return dDisplay + hDisplay + mDisplay + sDisplay;
+}
+
 export default function Challenge({ challengeData }) {
 
     const { currentAccount } = useAuth()
     const [staked, setStaked] = useState(false)
+    const [timeIntoChallenge, setTimeIntoChallenge] = useState(null)
+
+    useEffect(() => {
+        if (currentAccount && staked) {
+            setTimeIntoChallenge(timeIntoChallenge)
+        }
+    }, [currentAccount, staked])
 
     const handleStake = async (challengeNumber) => {
         // stakeCOUN().then(() => {
         //     setStaked(true)
         // })
         stake(challengeNumber)
-        .then(() => setStaked(true))
-        .catch(err=>console.log(err))
+            .then(() => setStaked(true))
+            .catch(err => console.log(err))
     }
 
     const handleStart = async (challengeNumber) => {
-        console.log("Inside handle start"+challengeNumber)
+        console.log("Inside handle start" + challengeNumber)
         start(challengeNumber)
     }
 
     const handleStop = async (challengeNumber) => {
-        console.log("Inside handle stop"+challengeNumber)
+        console.log("Inside handle stop" + challengeNumber)
         stop(challengeNumber)
     }
 
     const handleGetReward = async (challengeNumber) => {
-        console.log("Inside handle getReward"+challengeNumber)
+        console.log("Inside handle getReward" + challengeNumber)
         getReward(challengeNumber)
     }
 
@@ -57,8 +78,9 @@ export default function Challenge({ challengeData }) {
                         <div>
                             {staked ? (
                                 <div className="mt-4">
-                                    <button className="px-4 py-2 bg-green-500" onClick={()=>{handleStart(challengeData.number)}}>Start {challengeData.description}</button><button className="ml-6 px-4 py-2 bg-green-500" onClick={()=>{handleStart(challengeData.number)}}>Stop {challengeData.description}</button>
-                                    <div className="mt-4"><button className="px-4 py-2 bg-green-700" onClick={() => {handleGetReward(challengeData.number)}}>Get Reward</button></div>
+                                    <div>You started this challenge {() => secondsToDhms(timeIntoChallenge)} ago</div>
+                                    <div className="mt-4"><button className="px-4 py-2 bg-green-500" onClick={() => { handleStart(challengeData.number) }}>Start {challengeData.description}</button><button className="ml-6 px-4 py-2 bg-green-500" onClick={() => { handleStart(challengeData.number) }}>Stop {challengeData.description}</button></div>
+                                    <div className="mt-4"><button className="px-4 py-2 bg-green-700" onClick={() => { handleGetReward(challengeData.number) }}>Get Reward</button></div>
                                 </div>
                             ) : (
                                 <button className="mt-4 px-4 py-2 bg-green-500" onClick={() => handleStake(challengeData.number)}>Stake and Start</button>
