@@ -25,7 +25,7 @@ export default function Layout({ children }) {
             const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
             setCurrentAccount(accounts[0])
             const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
-            getReward(provider); // for testing
+            
         } catch (error) {
             console.log(error)
         }
