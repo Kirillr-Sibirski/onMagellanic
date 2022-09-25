@@ -12,7 +12,7 @@ const shortenAddress = (address) => {
 
 export default function Layout({ children }) {
 
-    const {currentAccount, setCurrentAccount} = useAuth()
+    const { currentAccount, setCurrentAccount } = useAuth()
 
     const connectWalletHandler = async () => {
         const { ethereum } = window
@@ -34,8 +34,8 @@ export default function Layout({ children }) {
             <div>
                 <header className="flex justify-between mb-6">
                     <div className="flex items-center">
-                        <h1 className="text-3xl"><Link href="/"><a>OnMagellanic</a></Link></h1>
-                        <h4 className="ml-8"><Link href="/challenges"><a>Challenges</a></Link></h4>
+                        <h3 className="text-xl font-extrabold"><Link href="/"><a>OnMagellanic</a></Link></h3>
+                        <p className="ml-8 text-gray-600"><Link href="/challenges"><a>Challenges</a></Link></p>
                     </div>
                     {currentAccount ? (
                         <h4>{shortenAddress(currentAccount)}</h4>

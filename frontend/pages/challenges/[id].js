@@ -1,6 +1,7 @@
 import Layout from "../../components/layout";
 import { challengesData } from "../../challengesData";
 import { useAuth } from "../../components/authProvider";
+import FAQ from "../../components/faq";
 
 export default function Challenge({ challengeData }) {
 
@@ -8,8 +9,10 @@ export default function Challenge({ challengeData }) {
 
     return (
         <Layout>
-            <h3>{challengeData.name}</h3>
+            <h3 className="text-xl">{challengeData.name}</h3>
+            <h2 className="text-2xl text-red-600">Staking Pool closes for new challengers on 17:30 1 Oct GMT+5:30</h2>
             {currentAccount && <p>Logged In</p>}
+            <FAQ />
         </Layout>
     )
 }
