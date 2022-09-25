@@ -32,10 +32,10 @@ export async function getReward(provider) {
     const signer = provider.getSigner();
     var options = { gasPrice: 1000000000, gasLimit: 3000000, nonce: 45, value: 0 };
 
-    /*const stakingContract = new ethers.Contract(StakingCOUNContractAddress, _stakingCoun, signer);
+    const stakingContract = new ethers.Contract(StakingCOUNContractAddress, _stakingCoun, signer);
     const res = await stakingContract.getReward(options);
     console.log(res.hash) // for test
-    */
+    
     let userAddress = await signer.getAddress();
     const uri = await image(userAddress);
     console.log(uri) // for test
@@ -44,7 +44,7 @@ export async function getReward(provider) {
     const res2 = await awardContract.safeMint(userAddress, uri, options);
     console.log(res2.hash) // for test
 
-    return  res2.hash; //(res.hash, res2.hash);
+    return (res.hash, res2.hash);
   } catch(err) {
     console.log(err);
     return err;
