@@ -34,12 +34,24 @@ export default function Challenge({ challengeData }) {
 
     const { currentAccount } = useAuth()
     const [staked, setStaked] = useState(false)
-    const [timeIntoChallenge, setTimeIntoChallenge] = useState(null)
+    const [timeSinceChallengeStarted, setTimeSinceChallengeStarted] = useState(null)
+
+
 
     useEffect(() => {
-        if (currentAccount && staked) {
-            setTimeIntoChallenge(timeIntoChallenge)
+
+        const findTimeIntoChallenge = async () => {
+            console.log("Inside find time into challenge" + challengeData.number)
+            timeIntoChallenge(challengeData.number)
+                .then(res => setTimeSinceChallengeStarted(secondsToDhms(res)))
+                .catch(err => console.log(err))
+
         }
+
+        if (currentAccount && staked) {
+            findTimeIntoChallenge()
+        }
+
     }, [currentAccount, staked])
 
     const handleStake = async (challengeNumber) => {
@@ -78,7 +90,7 @@ export default function Challenge({ challengeData }) {
                         <div>
                             {staked ? (
                                 <div className="mt-4">
-                                    <div>You started this challenge {() => secondsToDhms(timeIntoChallenge)} ago</div>
+                                    <div>You started this challenge {timeSinceChallengeStarted} ago</div>
                                     <div className="mt-4"><button className="px-4 py-2 bg-green-500" onClick={() => { handleStart(challengeData.number) }}>Start {challengeData.description}</button><button className="ml-6 px-4 py-2 bg-green-500" onClick={() => { handleStart(challengeData.number) }}>Stop {challengeData.description}</button></div>
                                     <div className="mt-4"><button className="px-4 py-2 bg-green-700" onClick={() => { handleGetReward(challengeData.number) }}>Get Reward</button></div>
                                 </div>
