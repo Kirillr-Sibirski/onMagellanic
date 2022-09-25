@@ -3,23 +3,74 @@ import { COUNContractAddress, GreatSleepRegulatorContractAddress, OldAgainstNewC
 import image from "../pages/api/ipfs";
 
 export async function start(challenge){
-  // start timer
+  try {
+    const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+    await provider.send("eth_requestAccounts", []);
+    const signer = provider.getSigner();
+    let name;
+    let abi;
+    switch (challenge) {
+      case 0: 
+        name = GreatSleepRegulatorContractAddress
+        abi = _GreatSleepRegulator
+      case 1:
+        name = OldAgainstNewContractAddress
+        abi = _OldAgainstNew
+      case 2:
+        name = StableBedFrequencyContractAddress
+        abi = _StableBedFrequency
+      case 3:
+        name = TalkToSubsciousnessContractAddress
+        abi = _TalkToSubsciousness
+      case 4:
+        name = TraditionalPracticeNewHorizonContractAddress
+        abi = _TraditionalPracticeNewHorizon
+    }
+    const contract = new ethers.Contract(name, abi, signer);
+    const req = await contract.startDaily();
+    console.log(req)
+  } catch(err) {
+    console.log(err)
+  }
 }
 
 export async function stop(challenge){
-  // stop timer
-  const sleep_time = 8; // In hours
-  // check if limit is met
-  // If not ...
+  try {
+    const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+    await provider.send("eth_requestAccounts", []);
+    const signer = provider.getSigner();
+    let name;
+    let abi;
+    switch (challenge) {
+      case 0: 
+        name = GreatSleepRegulatorContractAddress
+        abi = _GreatSleepRegulator
+      case 1:
+        name = OldAgainstNewContractAddress
+        abi = _OldAgainstNew
+      case 2:
+        name = StableBedFrequencyContractAddress
+        abi = _StableBedFrequency
+      case 3:
+        name = TalkToSubsciousnessContractAddress
+        abi = _TalkToSubsciousness
+      case 4:
+        name = TraditionalPracticeNewHorizonContractAddress
+        abi = _TraditionalPracticeNewHorizon
+    }
+    const contract = new ethers.Contract(name, abi, signer);
+    const req = await contract.stopDaily();
+    console.log(req)
+  } catch(err) {
+    console.log(err)
+  }
 }
 
 export async function stake(challenge){ // int
   try {
     const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
     let amount = ethers.utils.parseEther('10'); // 10 COUN in Wei
-    let time = 1209600; // 14 days in Seconds
     
-    // Do all the checks here (if the user has already staked etc.) 
     await provider.send("eth_requestAccounts", []);
     const signer = provider.getSigner();
 
@@ -56,9 +107,21 @@ export async function stake(challenge){ // int
   }
 }
 
-export async function getReward(challenge) { //The same name as nft award images 
+export async function getReward(challenge) { // int
   try {
-    // Check here if the user has completed the challenge
+    let name;
+    switch (challenge) {
+      case 0: 
+        name = "GreatSleepRegulator"
+      case 1:
+        name = "OldAgainstNew"
+      case 2:
+        name = "StableBedFrequency"
+      case 3:
+        name = "TalkToSubsciousness"
+      case 4:
+        name = "TraditionalPracticeNewHorizon"
+    }
 
     const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
     await provider.send("eth_requestAccounts", []);
