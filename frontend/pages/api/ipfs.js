@@ -12,7 +12,7 @@ export default async function generateNFT(user, challenge) { // Generate and upl
 
   const client = new NFTStorage({ token: process.env.NEXT_PUBLIC_NFT_STORAGE_KEY })
   const metadata = await client.store(nft)
-
+  console.log(JSON.stringify(metadata.url));
   return JSON.stringify(metadata.url);
 }
 
