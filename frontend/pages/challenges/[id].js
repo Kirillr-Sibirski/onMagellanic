@@ -19,33 +19,41 @@ export default function Challenge({ challengeData }) {
     const [staked, setStaked] = useState(false)
 
     const handleStake = async () => {
-        stakeCOUN().then(()=>{
+        stakeCOUN().then(() => {
             setStaked(true)
         })
     }
 
     return (
         <Layout>
-            <h1 className="text-3xl font-bold">{challengeData.name}</h1>
-            {/* <h4 className="text-lg text-red-600 mt-2">Staking Pool closes for new challengers on 17:30 1 Oct GMT+5:30</h4> */}
-            <div className="mt-2"><i className='far fa-calendar-alt' /><span className="ml-2">{challengeData.durationInDays} days</span></div>
-            <div className="mt-2"><i className='fas fa-money-bill-alt' /><span className="ml-2">{challengeData.stakeAmount} COUN</span></div>
-            {currentAccount ? (
-                <div>
-                    {staked ? (
-                            <div className="mt-4">
-                                <button className="px-4 py-2 bg-green-500">Start {challengeData.description}</button><button className="ml-6 px-4 py-2 bg-green-500">Stop {challengeData.description}</button>
-                            </div>
-                        ):(
-                            <button className="mt-4 px-4 py-2 bg-green-500" onClick={handleStake}>Stake and Start</button>
-                        )}
+            <div className="flex">
+                <div className="basis-1/2">
+                    <h1 className="text-3xl font-bold">{challengeData.name}</h1>
+                    {/* <h4 className="text-lg text-red-600 mt-2">Staking Pool closes for new challengers on 17:30 1 Oct GMT+5:30</h4> */}
+                    <div className="mt-2"><i className='far fa-calendar-alt' /><span className="ml-2">{challengeData.durationInDays} days</span></div>
+                    <div className="mt-2"><i className='fas fa-money-bill-alt' /><span className="ml-2">{challengeData.stakeAmount} COUN</span></div>
+                    {currentAccount ? (
+                        <div>
+                            {staked ? (
+                                <div className="mt-4">
+                                    <button className="px-4 py-2 bg-green-500">Start {challengeData.description}</button><button className="ml-6 px-4 py-2 bg-green-500">Stop {challengeData.description}</button>
+                                </div>
+                            ) : (
+                                <button className="mt-4 px-4 py-2 bg-green-500" onClick={handleStake}>Stake and Start</button>
+                            )}
+                        </div>
+
+                    ) : (
+                        <button className="mt-4 px-4 py-2 bg-green-500" onClick={handleStake}>Connect Wallet</button>
+                    )
+                    }
+                    <FAQ />
                 </div>
-                
-            ) : (
-                <button className="mt-4 px-4 py-2 bg-green-500" onClick={handleStake}>Connect Wallet</button>
-            )
-            }
-            <FAQ />
+                <div className="basis-1/2">
+                    <img className="ml-[50px] h-[50%] w-[25%] rounded-full border border-gray-400" src={`/challenges/${challengeData.img}`} alt=""></img>
+                    <p className="mt-4">All successful challengers will be minted this nft</p>
+                </div>
+            </div>
         </Layout>
     )
 }

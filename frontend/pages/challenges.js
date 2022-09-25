@@ -15,9 +15,9 @@ export default function Home() {
     <Layout>
       <div className="flex flex-wrap">
         {challengesData.map((challenge) => (
-          <div className="px-[1%] basis-1/4 overflow-hidden" key={challenge.id} onClick={() => { handleChallengeClick(challenge.id) }}>
+          <div className="px-[5%] basis-1/4 overflow-hidden mb-2" key={challenge.id} onClick={() => { handleChallengeClick(challenge.id) }}>
             <Link href={`/challenges/${challenge.id}`}><a>
-              <img src={`/challenges/${challenge.img}`} alt="" className="" />
+              <img src={`/challenges/${challenge.img}`} alt="" className="border border-gray-400" />
               <div>
                 <p className="text-lg font-bold">{challenge.name}</p>
                 <p className="text-gray-600 truncate">{challenge.durationInDays} days</p>
