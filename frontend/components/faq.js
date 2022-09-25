@@ -35,7 +35,7 @@ export default function FAQ() {
 
     return (
         <div>
-            <h3 className="text-xl mt-6">FAQS</h3>
+            <h3 className="text-xl mt-8">FAQS</h3>
             <div className="mt-4">
                 {faqsData.map((faq, index) => (
                     <div>
