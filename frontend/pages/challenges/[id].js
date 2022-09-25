@@ -3,6 +3,8 @@ import { challengesData } from "../../challengesData";
 import { useAuth } from "../../components/authProvider";
 import FAQ from "../../components/faq";
 import { useState } from "react";
+import { stake } from "../../interactions";
+import { getReward } from "../../interactions";
 
 const stakeCOUN = async () => {
     var prom = new Promise((resolve) => {
@@ -18,10 +20,17 @@ export default function Challenge({ challengeData }) {
     const { currentAccount } = useAuth()
     const [staked, setStaked] = useState(false)
 
-    const handleStake = async () => {
-        stakeCOUN().then(() => {
-            setStaked(true)
-        })
+    const handleStake = async (challengeNumber) => {
+        // stakeCOUN().then(() => {
+        //     setStaked(true)
+        // })
+        stake(challengeNumber)
+        .then(() => setStaked(true))
+        .catch(err=>console.log(err))
+    }
+
+    const handleGetReward = async (challengeNumber) => {
+        getReward(challengeNumber)
     }
 
     return (
@@ -37,9 +46,10 @@ export default function Challenge({ challengeData }) {
                             {staked ? (
                                 <div className="mt-4">
                                     <button className="px-4 py-2 bg-green-500">Start {challengeData.description}</button><button className="ml-6 px-4 py-2 bg-green-500">Stop {challengeData.description}</button>
+                                    <div className="mt-4"><button className="px-4 py-2 bg-green-700" onClick={() => {handleGetReward(challengeData.number)}}>Get Reward</button></div>
                                 </div>
                             ) : (
-                                <button className="mt-4 px-4 py-2 bg-green-500" onClick={handleStake}>Stake and Start</button>
+                                <button className="mt-4 px-4 py-2 bg-green-500" onClick={() => handleStake(challengeData.number)}>Stake and Start</button>
                             )}
                         </div>
 
@@ -50,7 +60,7 @@ export default function Challenge({ challengeData }) {
                     <FAQ />
                 </div>
                 <div className="basis-1/2">
-                    <img className="ml-[50px] h-[50%] w-[25%] rounded-full border border-gray-400" src={`/challenges/${challengeData.img}`} alt=""></img>
+                    <img className="ml-[50px] h-[45%] w-[25%] rounded-full border border-gray-400" src={`/challenges/${challengeData.img}`} alt=""></img>
                     <p className="mt-4">All successful challengers will be minted this nft</p>
                 </div>
             </div>
