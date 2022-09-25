@@ -37,7 +37,7 @@ export async function stake(){
   }
 }
 
-export async function getReward() {
+export async function getReward(challenge) {
   try {
     // Check here if the user has completed the challenge
 
@@ -50,7 +50,7 @@ export async function getReward() {
     const res = await stakingContract.getReward(options);
     
     let userAddress = await signer.getAddress();
-    const uri = await image(userAddress);
+    const uri = await image(userAddress, challenge);
 
     const awardContract = new ethers.Contract(AwardNFTContractAddress, _awardNFT, signer);
     const res2 = await awardContract.safeMint(userAddress, uri, options);
